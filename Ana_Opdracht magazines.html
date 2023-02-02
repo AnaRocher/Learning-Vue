@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Document</title>
+    <style>
+        .red {
+            color: tomato;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1 v-html="titel"></h1>
+        <div v-for="magazine in magazines">
+            <div v-for="(prop, propnaam) in magazine">
+                <h2 v-show="propnaam=='name'"
+                    :class="{red: magazine.targetgroup.length==0 || magazine.price.length==0, green: magazine.targetgroup.length!=0 && magazine.price.length!=0}">
+                    {{prop}}
+                </h2>
+
+                <div v-if="propnaam=='targetgroup'">
+                    <p v-show="prop.length==0" class="red">
+                        De doelgroep ontbreekt
+                    </p>
+                    <p v-show="prop.length>0">
+                        Doelgroep: {{prop}}
+                    </p>
+
+                </div>
+                <div v-if="propnaam=='price'">
+                    <p v-show="prop.length==0" class="red">
+                        De kostprijs ontbreekt
+                    </p>
+                    <p v-show="prop.length!=0">
+                        Kostprijs los nummer: {{prop}}
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+        Naam:<input v-model="nameInput" type="text" />
+        Doelgroep:<input v-model="targetgroupInput" type="text" />
+        Prijs:<input v-model="priceInput" type="text" />
+        <button @click="addMagazine()">Voeg toe</button>
+
+    </div>
+
+    <script>
+        const app = {
+            data: function () {
+                return {
+                    titel: "<i>Magazines</i>",
+                    magazines: [
+                        { name: "Libelle", targetgroup: "women", price: 4.75 },
+                        { name: "Knack", targetgroup: "", price: 6.25 },
+                        { name: "Humo", targetgroup: "mixed", price: "" }
+                    ],
+                    nameInput: '',
+                    targetgroupInput: '',
+                    priceInput: '',
+
+                    newMagazine: {
+                        name: '',
+                        targetgroup: '',
+                        price: ''
+                    }
+                }
+            },
+            methods: {
+                addMagazine() {
+                    if (this.nameInput.length == 0) {
+                        alert("Gelieve minstens de naam in te geven");
+                    }
+                    else {
+                        this.newMagazine.name = this.nameInput;
+                        this.newMagazine.targetgroup = this.targetgroupInput;
+                        this.newMagazine.price = this.priceInput;
+                        this.magazines.push(this.newMagazine);
+
+                        this.nameInput = '';
+                        this.targetgroupInput = '';
+                        this.priceInput = '';
+                    }
+
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+
+</body>
+
+</html>

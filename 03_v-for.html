@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for="i in 4">
+            <p>Goeiemorgen</p>
+            <p>i is nu {{i}}</p> <!-- O <p> que tiver dentro do <div> vai ser repetido pelo numero de vezes do i; para evitar a repetição
+                                    o <p> deve estar fora do <div>-->
+        </div>
+
+        <div v-for="i in 10">
+            <p>{{ 11 - i }}</p>
+        </div>
+        <p>Launch big rocket!</p>
+    </div>
+
+    <script>
+
+        const app = {
+            data: function () {
+                return {
+
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+
+</body>
+
+</html>
